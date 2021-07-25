@@ -4,6 +4,7 @@ import baseUrl from '../utils/baseUrl';
 import axios from 'axios';
 import {loginUser} from '../utils/authUser';
 import { HeaderMessage,FooterMessage } from '../components/common/WelcomeMessage';
+import cookie from 'js-cookie';
 
 
 const Login=()=>{
@@ -37,6 +38,13 @@ const Login=()=>{
         e.preventDefault();
         await loginUser(user,setErrorMsg,setFormLoading);
     }
+
+    useEffect(() => {
+        document.title = "Welcome Back";
+        const userEmail = cookie.get("userEmail");
+        if (userEmail) setUser(prev => ({ ...prev, email: userEmail }));
+      }, []);
+    
 
     return(
         <>
